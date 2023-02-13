@@ -7,13 +7,16 @@ public class CharacterController : MonoBehaviour
     [Header("Movement settings")]
     [SerializeField] float jumpForce = 250f;
     [SerializeField] float walkSpeed = 6f, sprintSpeed = 8f;
-    [Range(0, 1f)]
-    [SerializeField] float smoothTime = 0.15f;
 
     [Space]
     public MovementTypeEnum MovementType = new MovementTypeEnum();
     [Header("Only effects movement while using Force")]
     [SerializeField] float maximumSpeed = 5f;
+    [Header("Only effects movement while using Move Position")]
+    [SerializeField]
+    float smoothTimeWhileInAir = 0.6f;
+    [Range(0, 5f)]
+    [SerializeField] float smoothTime = 0.15f;
 
     [ReadOnlyInspector]
     public bool isGrounded;
@@ -22,9 +25,11 @@ public class CharacterController : MonoBehaviour
     Vector3 moveDir;
 
     Rigidbody rb;
+    float smoothtimeSave;
 
     private void Start()
     {
+        smoothtimeSave = smoothTime;
         rb = GetComponent<Rigidbody>();
     }
     private void Update()
@@ -100,7 +105,12 @@ public class CharacterController : MonoBehaviour
     }
     public void SetGroundedSate(bool _grounded)
     {
+        if (isGrounded == _grounded) return;
         isGrounded = _grounded;
+        if (MovementType != MovementTypeEnum.MovePosition) return;
+        if (isGrounded) smoothTime = smoothtimeSave;
+        else smoothTime = smoothTimeWhileInAir;
+
     }
 }
 

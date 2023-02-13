@@ -6,7 +6,7 @@ public class PlayerGroundCheck : MonoBehaviour
 {
     public CharacterController characterController;
 
-    private void Start()
+    private void Awake()
     {
         characterController = GetComponentInParent<CharacterController>();
     }
@@ -21,9 +21,9 @@ public class PlayerGroundCheck : MonoBehaviour
         characterController.SetGroundedSate(false);
     }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.CompareTag("Player")) return;
-    //    playercontroller.SetGroundedSate(true);
-    //}
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player")) return;
+        characterController.SetGroundedSate(true);
+    }
 }
