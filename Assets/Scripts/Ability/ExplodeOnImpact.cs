@@ -19,4 +19,9 @@ public class ExplodeOnImpact : MonoBehaviour
         }
         gameObject.SetActive(false);
     }
+
+    IEnumerator DisableOverTime()
+    {
+        yield return new WaitForSeconds(.5f);
+    }
 }

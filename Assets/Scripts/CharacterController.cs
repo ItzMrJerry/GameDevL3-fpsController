@@ -6,12 +6,15 @@ public class CharacterController : MonoBehaviour
 {
     [Header("Movement settings")]
     [SerializeField] float jumpForce = 250f;
+    [SerializeField] private float jumpRate = 0.5f;
+    private float nextFire;
     [SerializeField] float walkSpeed = 6f, sprintSpeed = 8f;
 
     [Space]
     public MovementTypeEnum MovementType = new MovementTypeEnum();
     [Header("Only effects movement while using Force")]
     [SerializeField] float maximumSpeed = 5f;
+    [SerializeField] float drag = 7f;
     [Header("Only effects movement while using Move Position")]
     [SerializeField]
     float smoothTimeWhileInAir = 0.6f;
@@ -34,8 +37,8 @@ public class CharacterController : MonoBehaviour
     }
     private void Update()
     {
-        Move();
         Jump();
+        Move();
 
 
     }
@@ -90,9 +93,12 @@ public class CharacterController : MonoBehaviour
                 rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
                 break;
             case MovementTypeEnum.Force:
-                Vector3 movedir = transform.TransformDirection(moveDir) * ((Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed) * 2) * Time.fixedDeltaTime;
-                rb.AddForce(movedir, ForceMode.Impulse);
+                Vector3 movedir = (transform.TransformDirection(moveDir) * ((Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed) * 2) * Time.fixedDeltaTime);
                 
+                if (isGrounded)
+                rb.AddForce(movedir * rb.mass, ForceMode.Impulse);
+                else
+                rb.AddForce(((movedir * rb.mass) / drag) / 2 , ForceMode.Impulse);
                 break;
         }
 
@@ -100,8 +106,9 @@ public class CharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKey(KeyCode.Space) && isGrounded && Time.time > nextFire)
         {
+            nextFire = Time.time + jumpRate;
             rb.AddForce(transform.up * rb.mass * jumpForce);
         }
     }
@@ -109,9 +116,9 @@ public class CharacterController : MonoBehaviour
     {
         if (isGrounded == _grounded) return;
         isGrounded = _grounded;
-        if (MovementType != MovementTypeEnum.MovePosition) return;
-        if (isGrounded) smoothTime = smoothtimeSave;
-        else smoothTime = smoothTimeWhileInAir;
+        //if (MovementType != MovementTypeEnum.MovePosition) return;
+        if (isGrounded) { smoothTime = smoothtimeSave; rb.drag = drag; }
+        else { smoothTime = smoothTimeWhileInAir; rb.drag = 0; }
 
     }
 }

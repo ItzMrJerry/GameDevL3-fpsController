@@ -16,4 +16,4 @@ MonoBehaviour:
     type: 3}
   startVelocity: 35
   radius: 10
-  power: 1000
+  power: 2000
