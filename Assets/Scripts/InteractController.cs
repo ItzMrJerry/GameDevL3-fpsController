@@ -35,11 +35,12 @@ public class InteractController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, interactRange))
             {
 
-                if (hit.transform.gameObject.layer == 6) {
+                if (hit.transform.gameObject.layer == interactLayer) {
                     
                     CanInteract = true;
                     text.gameObject.SetActive(CanInteract);
                     Debug.Log("can interact");
+
                 } else
                 {
                     if (!CanInteract) return;

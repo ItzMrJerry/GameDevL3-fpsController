@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8aa20e45549ea040828c801c685a68e, type: 3}
+  m_Name: SmallFireBall
+  m_EditorClassIdentifier: 
+  fireBallPrefab: {fileID: 3413204048782083718, guid: 903e10936b4bb014685a4277330f6fe8,
+    type: 3}
+  startVelocity: 35
+  radius: 10
+  power: 1000

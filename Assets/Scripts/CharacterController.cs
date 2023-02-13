@@ -36,14 +36,16 @@ public class CharacterController : MonoBehaviour
     {
         Move();
         Jump();
+
+
     }
+
+    
 
     private void Move()
     {
         moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
             
-
-
         switch (MovementType)
         {
             case MovementTypeEnum.MovePosition:
@@ -100,7 +102,7 @@ public class CharacterController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.AddForce(transform.up * jumpForce);
+            rb.AddForce(transform.up * rb.mass * jumpForce);
         }
     }
     public void SetGroundedSate(bool _grounded)
@@ -113,6 +115,7 @@ public class CharacterController : MonoBehaviour
 
     }
 }
+
 
 public enum MovementTypeEnum
 {
