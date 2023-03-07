@@ -7,16 +7,30 @@ public class ExplodeOnImpact : MonoBehaviour
     [SerializeField] private FireBall fireball;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) return;
+        
         Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, fireball.radius);
-        foreach (Collider hit in colliders)
+        for (int i = 0; i < colliders.Length; i++)
         {
-            Debug.Log(hit.transform.name);
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            if (colliders[i].CompareTag("Player") || colliders[i].CompareTag("Terrain")) continue;
+            colliders[i].gameObject.AddComponent<Rigidbody>();
+            Rigidbody rb = colliders[i].GetComponent<Rigidbody>();
 
             if (rb != null)
                 rb.AddExplosionForce(fireball.power, gameObject.transform.position, fireball.radius, 3.0F);
+
         }
+        //foreach (Collider hit in colliders)
+        //{
+        //    if (!hit.CompareTag("Player") || !hit.CompareTag("Terrain"))
+        //    {
+        //    hit.gameObject.AddComponent<Rigidbody>();
+        //    Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+        //    if (rb != null)
+        //        rb.AddExplosionForce(fireball.power, gameObject.transform.position, fireball.radius, 3.0F);
+
+        //    }
+        //}
         gameObject.SetActive(false);
     }
 

@@ -15,5 +15,5 @@ MonoBehaviour:
   fireBallPrefab: {fileID: 3413204048782083718, guid: 903e10936b4bb014685a4277330f6fe8,
     type: 3}
   startVelocity: 35
-  radius: 10
+  radius: 5
   power: 2000
