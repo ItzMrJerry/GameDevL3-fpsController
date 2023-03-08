@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [Header("Movement settings")]
+    [SetColor(0,255,0)]
     [SerializeField] float jumpForce = 250f;
     [SerializeField] private float jumpRate = 0.5f;
     private float nextFire;
@@ -21,6 +22,7 @@ public class CharacterController : MonoBehaviour
     [Range(0, 5f)]
     [SerializeField] float smoothTime = 0.15f;
 
+    [SetColor(255, 0, 0)]
     [ReadOnlyInspector]
     public bool isGrounded;
     Vector3 SmoothMoveVelocity;
@@ -39,8 +41,6 @@ public class CharacterController : MonoBehaviour
     {
         Jump();
         Move();
-
-
     }
 
     
