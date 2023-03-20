@@ -22,8 +22,10 @@ public class FireBall : Ability
         go.transform.position = transform.position - new Vector3(0,0.5f,0);
         go.transform.position += transform.forward * 2.5f;
         rb.velocity = transform.forward * startVelocity;
-        
+
+      
     }
+
 
   
 

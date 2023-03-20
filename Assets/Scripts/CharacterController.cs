@@ -5,26 +5,44 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [Header("Movement settings")]
-    [SetColor(0,255,0)]
+    [SetColor(0,250,233)]
     [SerializeField] float jumpForce = 250f;
-    [SerializeField] private float jumpRate = 0.5f;
+
+    [SetColor(0, 250, 233)]
+    [SerializeField] 
+    private float jumpRate = 0.5f;
+
     private float nextFire;
+
+    [SetColor(0, 250, 233)]
     [SerializeField] float walkSpeed = 6f, sprintSpeed = 8f;
 
     [Space]
     public MovementTypeEnum MovementType = new MovementTypeEnum();
     [Header("Only effects movement while using Force")]
-    [SerializeField] float maximumSpeed = 5f;
-    [SerializeField] float drag = 7f;
+
+    [SetColor(0, 250, 233)]
+    [SerializeField] 
+    float maximumSpeed = 5f;
+
+    [SetColor(0, 250, 233)]
+    [SerializeField] 
+    float drag = 7f;
+
     [Header("Only effects movement while using Move Position")]
+
     [SerializeField]
+    [SetColor(0, 250, 233)]
     float smoothTimeWhileInAir = 0.6f;
+
+    [SetColor(0, 250, 233)]
     [Range(0, 5f)]
     [SerializeField] float smoothTime = 0.15f;
 
-    [SetColor(255, 0, 0)]
+    [SetColor(255, 124, 107)]
     [ReadOnlyInspector]
     public bool isGrounded;
+
     Vector3 SmoothMoveVelocity;
     Vector3 moveAmount;
     Vector3 moveDir;
@@ -34,6 +52,7 @@ public class CharacterController : MonoBehaviour
 
     private void Start()
     {
+        
         smoothtimeSave = smoothTime;
         rb = GetComponent<Rigidbody>();
     }

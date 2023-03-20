@@ -12,25 +12,17 @@ public class ExplodeOnImpact : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].CompareTag("Player") || colliders[i].CompareTag("Terrain")) continue;
+            if (!colliders[i].gameObject.GetComponent<Rigidbody>())
+            {
             colliders[i].gameObject.AddComponent<Rigidbody>();
+                GameManager.instance.AddToDestructionMeter(0.01f);
+            }
             Rigidbody rb = colliders[i].GetComponent<Rigidbody>();
 
             if (rb != null)
                 rb.AddExplosionForce(fireball.power, gameObject.transform.position, fireball.radius, 3.0F);
-
+           
         }
-        //foreach (Collider hit in colliders)
-        //{
-        //    if (!hit.CompareTag("Player") || !hit.CompareTag("Terrain"))
-        //    {
-        //    hit.gameObject.AddComponent<Rigidbody>();
-        //    Rigidbody rb = hit.GetComponent<Rigidbody>();
-
-        //    if (rb != null)
-        //        rb.AddExplosionForce(fireball.power, gameObject.transform.position, fireball.radius, 3.0F);
-
-        //    }
-        //}
         gameObject.SetActive(false);
     }
 
