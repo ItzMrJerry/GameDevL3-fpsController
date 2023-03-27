@@ -11,6 +11,13 @@ public class AudioPool : MonoBehaviour
     public static AudioPool instance;
     private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of audiomanger found.");
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
     }
     void Start()

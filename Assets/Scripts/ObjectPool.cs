@@ -14,10 +14,15 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        if (objectpool == null)
-            objectpool = this;
-        else
-            Destroy(this);
+        if (objectpool != null)
+        {
+            Debug.LogWarning("More than one instance of audiomanger found.");
+            Destroy(gameObject);
+            return;
+        }
+
+        objectpool = this;
+        DontDestroyOnLoad(this.gameObject);
     }
     private void Start()
     {
