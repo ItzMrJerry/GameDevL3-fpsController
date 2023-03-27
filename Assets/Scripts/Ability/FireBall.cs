@@ -5,15 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Ability/FireBall")]
 public class FireBall : Ability
 {
+    
     [SerializeField] private GameObject fireBallPrefab;
     [SerializeField] float startVelocity;
     public float radius = 5.0F;
     public float power = 10.0F;
 
 
-    public override void Use(Transform transform)
+    public override bool Use(Transform transform)
     {
-        //GameObject go = Instantiate(fireBallPrefab, transform.position, transform.rotation);
+      
 
         GameObject go = ObjectPool.objectpool.GetObjectFromPool();
         Rigidbody rb = go.gameObject.GetComponent<Rigidbody>();
@@ -23,7 +24,10 @@ public class FireBall : Ability
         go.transform.position += transform.forward * 2.5f;
         rb.velocity = transform.forward * startVelocity;
 
-      
+        //GameObject go = Instantiate(fireBallPrefab, transform.position, transform.rotation);
+
+
+        return true;
     }
 
 

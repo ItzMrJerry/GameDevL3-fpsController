@@ -32,11 +32,11 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         audioPool = AudioPool.instance;
-        PlaySound(lastDuelMusicClip, 1 * MusicVolume, "Music", true);
+        PlaySound(lastDuelMusicClip, .25f * MusicVolume, "Music", true);
     }
 
 
-    public void PlaySound(AudioClip clip, float Volume, string tag, bool StopWhenClipEnds = default(bool))
+    public GameObject PlaySound(AudioClip clip, float Volume, string tag, bool StopWhenClipEnds = default(bool))
     {
         float _Volume = GameVolume * Volume;
 
@@ -48,9 +48,10 @@ public class AudioManager : MonoBehaviour
         
         if (StopWhenClipEnds == default(bool))
         {
-        StartCoroutine(WaitForClipToEnd(clip.length + 0.1f, go));
-            Debug.Log("test");
+        StartCoroutine(WaitForClipToEnd(clip.length, go));
+            //Debug.Log("test");
         }
+        return go;
     }
 
     public void PlaySoundRandomPitch(AudioClip clip, float Volume, float minPitch, float maxPitch, string tag, bool StopWhenClipEnds = default(bool))
@@ -67,7 +68,7 @@ public class AudioManager : MonoBehaviour
         if (StopWhenClipEnds == default(bool))
             StartCoroutine(WaitForClipToEnd(clip.length + 0.1f, go));
     }
-    IEnumerator WaitForClipToEnd(float time, GameObject go)
+    public IEnumerator WaitForClipToEnd(float time, GameObject go)
     {
 
         yield return new WaitForSeconds(time);

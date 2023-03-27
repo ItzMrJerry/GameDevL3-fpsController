@@ -5,42 +5,35 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [Header("Movement settings")]
-    [SetColor(0,250,233)]
+
     [SerializeField] float jumpForce = 250f;
 
-    [SetColor(0, 250, 233)]
     [SerializeField] 
     private float jumpRate = 0.5f;
 
     private float nextFire;
 
-    [SetColor(0, 250, 233)]
     [SerializeField] float walkSpeed = 6f, sprintSpeed = 8f;
 
     [Space]
     public MovementTypeEnum MovementType = new MovementTypeEnum();
     [Header("Only effects movement while using Force")]
 
-    [SetColor(0, 250, 233)]
     [SerializeField] 
     float maximumSpeed = 5f;
 
-    [SetColor(0, 250, 233)]
     [SerializeField] 
     float drag = 7f;
 
     [Header("Only effects movement while using Move Position")]
 
     [SerializeField]
-    [SetColor(0, 250, 233)]
     float smoothTimeWhileInAir = 0.6f;
 
-    [SetColor(0, 250, 233)]
     [Range(0, 5f)]
     [SerializeField] float smoothTime = 0.15f;
 
-    [SetColor(255, 124, 107)]
-    [ReadOnlyInspector]
+
     public bool isGrounded;
 
     Vector3 SmoothMoveVelocity;
@@ -50,6 +43,18 @@ public class CharacterController : MonoBehaviour
     Rigidbody rb;
     float smoothtimeSave;
 
+    public static CharacterController instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of audiomanger found.");
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
     private void Start()
     {
         

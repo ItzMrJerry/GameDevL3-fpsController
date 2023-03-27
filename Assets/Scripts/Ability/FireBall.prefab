@@ -5027,3 +5027,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireball: {fileID: 11400000, guid: 2a60a8cd0c31ac4418e03e08218c12dc, type: 2}
+  explosion: {fileID: 8300000, guid: 199d17456acfa3d44812c7235704c089, type: 3}
